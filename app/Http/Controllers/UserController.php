@@ -34,4 +34,14 @@ class UserController extends Controller
         }
     }
 
+    public function getUser($username){
+        $user = $this->userService->getUser($username);
+
+        if($user==null){
+            abort(404,'no such user');
+        }
+
+        return $user;
+    }
+
 }

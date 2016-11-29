@@ -10,21 +10,34 @@ use Illuminate\Support\Facades\Hash;
 class UserService
 {
 
-    protected $user;
+    protected $userDao;
 
     public function __construct(User $user)
     {
-        $this->user = $user;
+        $this->userDao = $user;
     }
 
     public function login(array $loginInfo){
-        $loginUser = User::query()->where('username',$loginInfo['username'])->first();
+        $loginUser = $this->userDao->
+                where('username',$loginInfo['username'])->first();
 
         if(Hash::check($loginInfo['password'],$loginUser->password)){
             return $loginUser->password;
         }else{
             return null;
         }
+    }
+
+    public function getUser($username){
+
+        $user = $this->userDao->where('username',$username)->first();
+
+        if($user == null ){
+            return null;
+        }
+
+        return $user->toShortArray();
+
     }
 
     public function register(array $data)

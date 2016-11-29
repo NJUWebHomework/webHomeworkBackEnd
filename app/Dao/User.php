@@ -10,7 +10,6 @@ use Carbon\Carbon;
 class User extends Model {
 
     public $table = 'user';
-
     public $timestamps = false;
 
     /**
@@ -18,17 +17,38 @@ class User extends Model {
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'password',
-    ];
+    protected $guarded = ['password'];
 
     protected $dates = ['signUpDate'];
     protected $dateFormat = 'Y-m-d';
     protected $visible = ['username', 'location','avatar'];
 
+    //设置类型转化
+    protected $casts = [
+        'isAdmin' => 'boolean',
+        'height' => 'double',
+        'weight' => 'double',
+        'watchedCount' => 'integer',
+        'watchingCount' => 'integer',
+        'goal' => 'integer'
+    ];
+    protected $appends = ['BMI'];
+
     public function toShortArray(){
 
-//        $this->makeHidden('attribute')->toArray()
+        $visibleArrt = ['signUpDate','height','weight',
+            'gender','description','watchedCount',
+            'watchingCount','goal','isAdmin','BMI'];
+
+        return $this->makeVisible($visibleArrt)->toArray();
     }
+
+    public function getBMIAttribute()
+    {
+        $bmi = $this->weight/pow($this->height/100,2);
+        return round($bmi,2);
+    }
+
+
 
 }

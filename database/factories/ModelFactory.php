@@ -16,7 +16,7 @@ use Carbon\Carbon;
 
 $factory->define(App\Dao\User::class, function (Faker\Generator $faker) {
     return [
-        'username' => $faker->name,
+        'username' => $faker->firstName.$faker->lastName,
         'password' => Hash::make('123456'),
         'signUpDate' => Carbon::createFromDate(rand(2015,2016),rand(1,12),rand(1,25)),
         'location' => $faker->randomElement($array = array ('南京','上海','北京')),

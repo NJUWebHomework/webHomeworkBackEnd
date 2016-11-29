@@ -9,7 +9,16 @@
 namespace App\Dao;
 
 
-class SportData
+use Illuminate\Database\Eloquent\Model;
+
+class SportData extends Model
 {
+    public $table = 'sportData';
+    public $timestamps = false;
+    protected $dates = ['startTime','endTime'];
+    protected $casts = [
+        'step' => 'integer',
+        'meters' => 'integer'
+    ];
 
 }
