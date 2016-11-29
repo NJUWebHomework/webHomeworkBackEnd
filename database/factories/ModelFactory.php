@@ -11,10 +11,23 @@
 |
 */
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
+
 
 $factory->define(App\Dao\User::class, function (Faker\Generator $faker) {
     return [
         'username' => $faker->name,
-        'password' => Hash::make('123456')
+        'password' => Hash::make('123456'),
+        'signUpDate' => Carbon::createFromDate(rand(2015,2016),rand(1,12),rand(1,25)),
+        'location' => $faker->randomElement($array = array ('南京','上海','北京')),
+        'avatar' => 'avatar'.rand(1,3),
+        'height' => 170 + rand(1,15),
+        'weight' => 58 + rand(1,10),
+        'gender' => $faker->randomElement($array = array ('male','female')),
+        'description' => '快乐运动健康生活',
+        'watchedCount' => 0,
+        'watchingCount' => 0,
+        'goal' => 8000,
+        'isAdmin' => false
     ];
 });

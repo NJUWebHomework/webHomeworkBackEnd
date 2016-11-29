@@ -5,6 +5,7 @@ namespace App\Dao;
 use Illuminate\Auth\Authenticatable;
 use Laravel\Lumen\Auth\Authorizable;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class User extends Model {
 
@@ -21,10 +22,13 @@ class User extends Model {
         'name', 'password',
     ];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
+    protected $dates = ['signUpDate'];
+    protected $dateFormat = 'Y-m-d';
+    protected $visible = ['username', 'location','avatar'];
+
+    public function toShortArray(){
+
+//        $this->makeHidden('attribute')->toArray()
+    }
 
 }
