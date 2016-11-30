@@ -35,10 +35,8 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
-        }
-
+        //通过调用guest,来调用AuthProvider中注册的回调,从而进行验证,也将user set进request中.
+        $this->auth->guard($guard)->guest();
         return $next($request);
     }
 }

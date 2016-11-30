@@ -12,6 +12,9 @@ class User extends Model {
     public $table = 'user';
     public $timestamps = false;
 
+    protected $primaryKey = 'username';
+    public $incrementing = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -49,6 +52,26 @@ class User extends Model {
         return round($bmi,2);
     }
 
+    public function ownCompetitions(){
+        return $this->hasMany('App\Dao\Competition','owner');
+    }
 
+    public function asNumberCompetitions(){
+        return $this->belongsToMany('App\Dao\Competition',
+            'competition_user',
+            'username',
+            'competitionId');
+    }
+
+    public function watchingUser(){
+        return $this->belongsToMany('App\Dao\User',
+            'watch',
+            'watchingName',
+            'watchedName');
+    }
+
+    public function activities(){
+        return $this->hasMany('App\Dao\Activity','author');
+    }
 
 }

@@ -18,7 +18,7 @@ class UserController extends Controller
 
     public function auth(Request $request){
 
-        Log::info( print_r($request->input(),true));
+        Log::info(print_r($request->input(),true));
 
         $this->validate($request, [
             'username' => 'required',

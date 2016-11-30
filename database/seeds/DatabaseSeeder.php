@@ -13,5 +13,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call('UserTableSeeder');
         $this->call('SportDataSeeder');
+        $this->call('CompetitionSeeder');
+        $this->call('WatchSeeder');
+        $this->call('ActivitySeeder');
     }
 }

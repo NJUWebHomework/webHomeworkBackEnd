@@ -11,6 +11,10 @@ class SportDataSeeder extends \Illuminate\Database\Seeder
 
     public function run()
     {
+        if(\App\Dao\SportData::query()->count()>10){
+            return;
+        }
+
         $client = new Client(['base_uri'=>'localhost:8000']);
 
         $users = User::query()->select('username')->orderBy('id')->limit(10)->get();
@@ -19,12 +23,9 @@ class SportDataSeeder extends \Illuminate\Database\Seeder
         $startDay = Carbon::now()->addDays(-$dayDiff);
         $endDay = Carbon::now()->addDays($dayDiff);
 
-//        Log::info('data',$this->createSportData($startDay,$endDay));
         foreach ($users as $user){
-
             $res = $client->request('POST', '/stat/'.$user->username.'/sport',
                 ['json' => $this->createSportData($startDay,$endDay)]);
-//            Log::info($res->getBody());
         }
 
     }

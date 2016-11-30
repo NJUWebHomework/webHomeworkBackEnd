@@ -21,6 +21,10 @@ class UserService
         $loginUser = $this->userDao->
                 where('username',$loginInfo['username'])->first();
 
+        if($loginUser == null){
+            return null;
+        }
+
         if(Hash::check($loginInfo['password'],$loginUser->password)){
             return $loginUser->password;
         }else{
