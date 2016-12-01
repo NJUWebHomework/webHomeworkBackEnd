@@ -37,13 +37,13 @@ class User extends Model {
     ];
     protected $appends = ['BMI'];
 
-    public function toShortArray(){
+    public function toFullArray(){
 
-        $visibleArrt = ['signUpDate','height','weight',
+        $visibleAttr = ['signUpDate','height','weight',
             'gender','description','watchedCount',
             'watchingCount','goal','isAdmin','BMI'];
 
-        return $this->makeVisible($visibleArrt)->toArray();
+        return $this->makeVisible($visibleAttr)->toArray();
     }
 
     public function getBMIAttribute()

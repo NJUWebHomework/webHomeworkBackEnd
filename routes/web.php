@@ -17,7 +17,12 @@ $app->get('/', function () use ($app) {
 
 $app->post('/auth', 'UserController@auth');
 
-$app->get('/users/{username}','UserController@getUser');
+$app->group(['prefix' => 'users'],function () use ($app){
+    $app->get('/{username}','UserController@getUser');
+    $app->get('/{username}/watch','UserController@getWatching');
+});
+
+
 
 $app->group(['prefix' => 'stat'],function () use ($app){
    $app->post('/{username}/sport','SportDataController@post');

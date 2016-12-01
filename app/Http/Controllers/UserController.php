@@ -44,4 +44,11 @@ class UserController extends Controller
         return $user;
     }
 
+    public function getWatching($username){
+        $watchingUsers = $this->userService->getWatching($username);
+        return $watchingUsers->map(function ($user){
+            return $user->toFullArray();
+        });
+    }
+
 }

@@ -40,8 +40,13 @@ class UserService
             return null;
         }
 
-        return $user->toShortArray();
+        return $user->toFullArray();
 
+    }
+
+    public function getWatching($username){
+        $user = $this->userDao->find($username);
+        return $user->watchingUser;
     }
 
     public function register(array $data)
